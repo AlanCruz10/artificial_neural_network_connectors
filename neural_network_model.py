@@ -6,11 +6,12 @@ from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D
 from keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Clases y tamaño
-classes = ['european_plug_type_c_male', 'usb_male', 'vga_female', 'vga_male']
+classes = ['usb_female', 'usb_male', 'hdmi_female', 'hdmi_male', 'plug_type_a_female', 'plug_type_a_male', 'plug_type_c_male', 'plug_type_c_female', 'vga_male', 'vga_female', 'ethernet_female', 'ethernet_male']
 num_classes = len(classes)
 img_rows, img_cols = 64, 64
 
@@ -41,16 +42,19 @@ x_train, x_test, y_train, y_test = train_test_split(data, target, test_size=0.2)
 
 model = Sequential()
 model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(img_rows, img_cols, 1)))
+model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(Conv2D(128, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Dropout(0, 25))
 model.add(Flatten())
-model.add(Dense(128, activation='relu'))
+model.add(Dense(256, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-history = model.fit(x_train, y_train, batch_size=38, epochs=13, verbose=1, validation_data=(x_test, y_test))
+history = model.fit(x_train, y_train, batch_size=45, epochs=24, verbose=1, validation_data=(x_test, y_test))
 
 model.save('modelo.h5')
 
