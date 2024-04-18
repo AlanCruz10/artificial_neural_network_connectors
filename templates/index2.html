@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Streaming</title>
+    <link href="../src/index.css" rel="stylesheet">
+{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">#}
+    <script src="../src/index.js" defer></script>
+</head>
+<body>
+    <div><h1>Reconocimiento de conectores</h1></div>
+    <div class="video-stream"><video id="video-feed" style="width: 640px; height: 480px;" autoplay></video></div>
+    <div>
+        <button id="capture-btn">Capturar Fotograma</button>
+    </div>
+    <div id="result-container"></div>
+</body>
+</html>
